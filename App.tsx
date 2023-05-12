@@ -1,19 +1,23 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import colors from './src/themes/colors';//themes
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { View, StyleSheet } from 'react-native';
+//screens
+import { HomeScreen } from './src/screens';
+
 
 
 const App = () => {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text style={{color: colors.primary}}>
-        icon
-        <AntDesign name='stepforward'/>
-      </Text>
 
+  return (
+    <View style={styles.app}>
+      <HomeScreen/>
     </View>
   )
-}
+};
+
+const styles = StyleSheet.create({
+  app: {
+    flex: 1,
+  }
+})
 
 export default App
