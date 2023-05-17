@@ -22,7 +22,7 @@ const DoubleTap = ({onDoubleTap = () => {}, children}: IDoubleTap) => {
   
 
   return (
-    <Pressable onPress={onDoubleTap}>
+    <Pressable onPress={postDoubleTap}>
       {children}
     </Pressable>
   )

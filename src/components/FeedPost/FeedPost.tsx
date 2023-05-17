@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 //components
-import {Comment, DoubleTap} from "../";
+import {Comment, DoubleTap, Caroussel} from "../";
 //styling
 import styles from "./FeedPost.styles";
 //themes
@@ -31,18 +31,21 @@ const FeedPost = ({post}: IFeedPost) => {
     setIsLiked(prev => !prev);
   }
 
-  //double tap functionality
-  let lastTap = 0
-  const postDoubleTap = () => {
-    const now = Date.now();
-    const DOUBLE_PRESS_DELAY = 300;
-    if (now - lastTap < DOUBLE_PRESS_DELAY) {
-      toggleLike()
-    } else {
-      lastTap = now;
-    }
+  let content = null;
+  if(post.image) {
+    content = (
+      <DoubleTap onDoubleTap={toggleLike}>
+        <Image
+          source={{
+            uri: post.image,
+          }}
+          style={styles.image}
+        />
+      </DoubleTap>
+    )
+  } else if (post.images) {
+    content = (<Caroussel images={post.images} doubleTap={toggleLike}/>)
   }
-  
 
   return (
     <View style={styles.post}>
@@ -67,14 +70,8 @@ const FeedPost = ({post}: IFeedPost) => {
       </View>
 
       {/* CONTENT */}
-      <DoubleTap onDoubleTap={toggleLike}>
-        <Image
-          source={{
-            uri: post.image,
-          }}
-          style={styles.image}
-        />
-      </DoubleTap>
+      {content}
+      
 
       {/* FOOTER */}
       <View style={styles.footer}>
