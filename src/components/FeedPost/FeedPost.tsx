@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 //components
-import {Comment, DoubleTap, Caroussel} from "../";
+import {Comment, DoubleTap, Caroussel, VideoPlayer} from "../";
 //styling
 import styles from "./FeedPost.styles";
 //themes
@@ -16,9 +16,10 @@ import { IPost } from '../../types/models';
 
 interface IFeedPost  {
   post: IPost;
+  isVisible: boolean;
 }
 
-const FeedPost = ({post}: IFeedPost) => {
+const FeedPost = ({post, isVisible}: IFeedPost) => {
 
   const [descExp, setDescExp] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -44,7 +45,13 @@ const FeedPost = ({post}: IFeedPost) => {
       </DoubleTap>
     )
   } else if (post.images) {
-    content = (<Caroussel images={post.images} doubleTap={toggleLike}/>)
+    content = (<Caroussel images={post.images} doubleTap={toggleLike}/>);
+  } else if (post.video) {
+    content = (
+    <DoubleTap onDoubleTap={toggleLike}>
+      <VideoPlayer uri={post.video} paused={!isVisible}/>
+    </DoubleTap>
+    );
   }
 
   return (
