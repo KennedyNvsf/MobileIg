@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 //screens
 import { 
   HomeScreen,
+  ProfileScreen,
   CommentsScreen
 } from './src/screens';
 
@@ -12,7 +13,7 @@ const App = () => {
 
   return (
     <View style={styles.app}>
-      <CommentsScreen/>
+      <ProfileScreen/>
     </View>
   )
 };
